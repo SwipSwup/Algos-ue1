@@ -47,7 +47,7 @@ namespace UE1
                 }
             }
         }
-
+        
         public Stock[] GetStock(uint hashKey)
         {
             if (table.TryGetValue(hashKey, out LinkedList<Stock> list))
@@ -58,7 +58,7 @@ namespace UE1
             return null;
         }
 
-        private uint GenerateHash(Stock stock)
+        public uint GenerateHash(Stock stock)
         {
             //todo implement hash function
             return 0;
