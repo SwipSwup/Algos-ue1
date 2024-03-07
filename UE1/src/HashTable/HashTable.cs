@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -60,8 +61,21 @@ namespace UE1
 
         public uint GenerateHash(Stock stock)
         {
-            //todo implement hash function
-            return 0;
+            double constValue = 0.6180339887;
+            int tableSize = 1000;
+            double hashKey = 0;
+
+            for (int i = 0; i < stock.name.Length; i++)
+            {
+                double hashValue = tableSize * ((stock.name[i] * constValue) % 1);
+                hashKey =+ hashValue;
+            }
+
+            hashKey = hashKey / stock.name.Length;
+
+            uint roundedHashKey = (uint)Math.Floor(hashKey);
+
+            return roundedHashKey;
         }
     }
 }
