@@ -7,8 +7,7 @@ namespace UE1
     {
         public static void Main(string[] args)
         {
-
-            while (1 != 0)
+            while (true)
             {
 
                 Console.WriteLine("Enter 'add': Eine Aktie hinzufügen");
@@ -20,7 +19,6 @@ namespace UE1
                 Console.WriteLine("Enter 'load': Hashtabelle aus Datei laden");
                 Console.WriteLine("Enter 'quit': Programm beenden");
                 Console.WriteLine("Bitte wählen Sie eine Aktion aus:");
-
 
                 string userInput = Console.ReadLine();
 
@@ -49,7 +47,6 @@ namespace UE1
                         break;
                     case "quit":
                         return;
-                        break;
                     default:
                         Console.WriteLine("Ungültiger Befehl!");
                         break;

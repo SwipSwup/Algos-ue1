@@ -6,42 +6,54 @@ namespace UE1
 {
     public class HashTable
     {
-        private Dictionary<uint, LinkedList<Stock>> table = new Dictionary<uint, LinkedList<Stock>>();
+        private const double GoldenCut = 0.6180339887;
 
+        private LinkedList<Stock>[] table;
+        
+        public HashTable(int tableSize = 1000)
+        {
+            table = new LinkedList<Stock>[tableSize];
+
+            for (int i = 0; i < table.Length; i++)
+            {
+                table[i] = null;
+            }
+        }
+        
         public void AddStock(Stock stock)
         {
-            uint hashKey = GenerateHash(stock);
+            uint hashKey = GenerateHash(stock.name);
 
-            if (table.TryGetValue(hashKey, out LinkedList<Stock> list))
+            if (table[hashKey] != null)
             {
-                list.AddFirst(stock);
+                table[hashKey].AddFirst(stock);
             }
             else
             {
                 LinkedList<Stock> newList = new LinkedList<Stock>();
                 newList.AddFirst(stock);
-                table.Add(hashKey, newList);
+                table[hashKey] = newList;
             }
         }
 
         public void RemoveStock(Stock stock)
         {
-            uint hashKey = GenerateHash(stock);
+            uint hashKey = GenerateHash(stock.name);
 
-            if (table.TryGetValue(hashKey, out LinkedList<Stock> list))
+            if (table[hashKey] != null)
             {
-                if (list.Count == 1)
+                if (table[hashKey].Count == 1)
                 {
-                    table.Remove(hashKey);
+                    table[hashKey] = null;
                 }
                 else
                 {
-                    foreach (Stock item in list)
+                    foreach (Stock item in table[hashKey])
                     {
                         //todo test if equals works or if custom solution is needed
                         if (item.Equals(stock))
                         {
-                            list.Remove(item);
+                            table[hashKey].Remove(item);
                             break;
                         }
                     }
@@ -49,33 +61,25 @@ namespace UE1
             }
         }
         
-        public Stock[] GetStock(uint hashKey)
+        public Stock[] GetStock(string name)
         {
-            if (table.TryGetValue(hashKey, out LinkedList<Stock> list))
-            {
-                return list.ToArray();
-            }
-
-            return null;
+            uint hashKey = GenerateHash(name);
+            return table[hashKey] != null ? table[hashKey].ToArray() : null;
         }
 
-        public uint GenerateHash(Stock stock)
+        public uint GenerateHash(string name)
         {
-            double constValue = 0.6180339887;
             int tableSize = 1000;
             double hashKey = 0;
 
-            for (int i = 0; i < stock.name.Length; i++)
+            for (int i = 0; i < name.Length; i++)
             {
-                double hashValue = tableSize * ((stock.name[i] * constValue) % 1);
-                hashKey =+ hashValue;
+                hashKey =+ tableSize * (name[i] * GoldenCut % 1);
             }
 
-            hashKey = hashKey / stock.name.Length;
+            hashKey /= name.Length;
 
-            uint roundedHashKey = (uint)Math.Floor(hashKey);
-
-            return roundedHashKey;
+            return (uint)Math.Floor(hashKey);
         }
     }
 }
