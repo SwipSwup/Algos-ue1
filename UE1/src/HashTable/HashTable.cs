@@ -74,7 +74,11 @@ namespace UE1
 
             for (int i = 0; i < name.Length; i++)
             {
+<<<<<<< HEAD
                 hashKey += tableSize * (name[i] * GoldenCut % 1);
+=======
+                hashKey =+ tableSize * (name[i] * GoldenCut % 1);
+>>>>>>> d629cbba0ab40f7b5cb89c449dde7bbb0b2934f3
             }
 
             hashKey /= name.Length;
