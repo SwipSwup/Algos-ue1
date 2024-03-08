@@ -69,12 +69,11 @@ namespace UE1
 
         public uint GenerateHash(string name)
         {
-            int tableSize = 1000;
             double hashKey = 0;
 
             for (int i = 0; i < name.Length; i++)
             {
-                hashKey += tableSize * (name[i] * GoldenCut % 1);
+                hashKey += table.Length * (name[i] * GoldenCut % 1);
             }
 
             hashKey /= name.Length;
