@@ -8,10 +8,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3080413e-d61e-423c-9d18-23e30a6a5bb6" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.UE1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UE1.dir/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashTable/HashTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTable/HashTable.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashTable/Stock.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTable/Stock.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.pdb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +40,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.UE1.executor": "Run",
+    ".NET Project.UE1.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -105,16 +108,16 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/src/HashTable/HashTable.cs</url>
-          <line>62</line>
-          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="62" containingFunctionPresentation="Method 'GenerateHash'">
+          <line>23</line>
+          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="23" containingFunctionPresentation="Method 'AddStock'">
             <startOffsets>
-              <option value="1712" />
+              <option value="518" />
             </startOffsets>
             <endOffsets>
-              <option value="1713" />
+              <option value="519" />
             </endOffsets>
           </properties>
-          <option name="timeStamp" value="1" />
+          <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
