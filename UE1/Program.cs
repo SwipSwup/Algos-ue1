@@ -42,8 +42,14 @@ namespace UE1
                     case "plot":
                         break;
                     case "save":
+                        Console.WriteLine("Enter filename to save:");
+                        string saveFilename = Console.ReadLine();
+                        hashTable.SaveToFile(saveFilename);
                         break;
                     case "load":
+                        Console.WriteLine("Enter filename to load:");
+                        string loadFilename = Console.ReadLine();
+                        hashTable.LoadFromFile(loadFilename);
                         break;
                     case "quit":
                         return;
@@ -90,16 +96,16 @@ namespace UE1
                 {
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
-
+                    
                     stock.data.Add(new StockData
                     {
                         date = DateTime.Parse(values[0]),
-                        open = double.Parse(values[1]),
-                        high = double.Parse(values[2]),
-                        low = double.Parse(values[3]),
-                        close = double.Parse(values[4]),
-                        adjClose = double.Parse(values[5]),
-                        volume = uint.Parse(values[6])
+                        open = double.Parse(values[1], System.Globalization.CultureInfo.InvariantCulture),
+                        high = double.Parse(values[2], System.Globalization.CultureInfo.InvariantCulture),
+                        low = double.Parse(values[3], System.Globalization.CultureInfo.InvariantCulture),
+                        close = double.Parse(values[4], System.Globalization.CultureInfo.InvariantCulture),
+                        adjClose = double.Parse(values[5], System.Globalization.CultureInfo.InvariantCulture),
+                        volume = uint.Parse(values[6], System.Globalization.CultureInfo.InvariantCulture)
                     });
                 }
             }
@@ -128,8 +134,7 @@ namespace UE1
 
         private static void SearchStock()
         {
-
-
+            
             Console.WriteLine("(1) Search by Stockname ");
             Console.WriteLine("(2) Search by SIN ");
             Console.WriteLine("Enter 1 or 2 to choose: ");

@@ -10,3 +10,9 @@ G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyReference.cache
 G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
 G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.exe
 G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.pdb
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\bin\Debug\UE1.exe
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\bin\Debug\UE1.pdb
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyReference.cache
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.exe
+C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.pdb

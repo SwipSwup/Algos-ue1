@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace UE1
 {
@@ -98,6 +99,100 @@ namespace UE1
             }
 
             return true;
+        }
+        
+        
+        // TODO: Fix Error, David?
+        public void SaveToFile(string filename)
+        {
+            string basePath = "../../../UE1/resources/saved/";
+            string fullFilePath = Path.Combine(basePath, "SAVED_" + filename + ".csv");
+
+            using (StreamWriter writer = new StreamWriter(fullFilePath))
+            {
+                foreach (var bucket in table)
+                {
+                    if (bucket != null)
+                    {
+                        foreach (var stock in bucket)
+                        {
+                            writer.WriteLine($"{stock.name},{stock.sin},{stock.symbol}");
+
+                            // GIVES ERROR HERE
+                            foreach (var stockData in stock.data)
+                            {
+                                writer.WriteLine($"{stockData.date},{stockData.open},{stockData.high},{stockData.low},{stockData.close},{stockData.adjClose},{stockData.volume}");
+                            }
+                        }
+                    }
+                }
+            }
+
+            Console.WriteLine($"Hash table saved to {fullFilePath}");
+        }
+        
+        // TODO: Test
+        public void LoadFromFile(string filename)
+        {
+            string basePath = "../../../UE1/resources/saved/";
+            string fullFilePath = Path.Combine(basePath, filename);
+
+            if (!File.Exists(fullFilePath))
+            {
+                Console.WriteLine($"File '{filename}' not found.");
+                return;
+            }
+
+            using (StreamReader reader = new StreamReader(fullFilePath))
+            {
+                string line;
+                while ((line = reader.ReadLine()) != null)
+                {
+                    string[] parts = line.Split(',');
+
+                    if (parts.Length < 3)
+                    {
+                        Console.WriteLine($"Invalid line: {line}");
+                        continue;
+                    }
+
+                    Stock newStock = new Stock
+                    {
+                        name = parts[0],
+                        sin = parts[1],
+                        symbol = parts[2],
+                        data = new List<StockData>()
+                    };
+
+                    // Read stock data
+                    while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
+                    {
+                        parts = line.Split(',');
+                        if (parts.Length != 7)
+                        {
+                            Console.WriteLine($"Invalid stock data line: {line}");
+                            continue;
+                        }
+
+                        StockData data = new StockData
+                        {
+                            date = DateTime.Parse(parts[0]),
+                            open = double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture),
+                            high = double.Parse(parts[2], System.Globalization.CultureInfo.InvariantCulture),
+                            low = double.Parse(parts[3], System.Globalization.CultureInfo.InvariantCulture),
+                            close = double.Parse(parts[4], System.Globalization.CultureInfo.InvariantCulture),
+                            adjClose = double.Parse(parts[5], System.Globalization.CultureInfo.InvariantCulture),
+                            volume = uint.Parse(parts[6], System.Globalization.CultureInfo.InvariantCulture)
+                        };
+
+                        newStock.data.Add(data);
+                    }
+
+                    AddStock(newStock);
+                }
+            }
+
+            Console.WriteLine($"Hash table loaded from {fullFilePath}");
         }
     }
 }
