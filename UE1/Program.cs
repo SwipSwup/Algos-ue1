@@ -37,6 +37,7 @@ namespace UE1
                         ImportStock();
                         break;
                     case "search":
+                        SearchStock();
                         break;
                     case "plot":
                         break;
@@ -124,5 +125,37 @@ namespace UE1
 
             return newStock;
         }
+
+        private static void SearchStock()
+        {
+
+
+            Console.WriteLine("(1) Search by Stockname ");
+            Console.WriteLine("(2) Search by SIN ");
+            Console.WriteLine("Enter 1 or 2 to choose: ");
+            string userInput = Console.ReadLine();
+
+            if (userInput == "1")
+            {
+                Console.WriteLine("Enter Stockname: ");
+                userInput = Console.ReadLine();
+                hashTable.TryGetStock(userInput, out Stock? s);
+
+                Stock stock = (Stock)s;
+                Console.WriteLine(stock.data[0]);
+            }
+            else if (userInput == "2")
+            {
+                Console.WriteLine("(2) Search by SIN ");
+            }
+            else
+            {
+                Console.WriteLine("Enter a number between 1-2");
+            }
+
+
+        }
+
+
     }
 }

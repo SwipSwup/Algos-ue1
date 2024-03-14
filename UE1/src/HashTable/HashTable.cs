@@ -59,7 +59,7 @@ namespace UE1
                 }
             }
         }
-
+        //todo Funktion sollte mit namen und mit kürzel suchen können
         public bool TryGetStock(string name, out Stock? stock)
         {
             stock = null;
