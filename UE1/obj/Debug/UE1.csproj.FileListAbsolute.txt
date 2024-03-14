@@ -4,3 +4,9 @@ C:\FH\SS24\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyReference.cache
 C:\FH\SS24\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
 C:\FH\SS24\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.exe
 C:\FH\SS24\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.pdb
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\bin\Debug\UE1.exe
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\bin\Debug\UE1.pdb
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyReference.cache
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.exe
+G:\FH\Sem2\ALGOS\Algos-ue1\UE1\obj\Debug\UE1.pdb

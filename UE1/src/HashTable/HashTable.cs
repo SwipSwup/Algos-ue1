@@ -9,7 +9,7 @@ namespace UE1
         private const double GoldenCut = 0.6180339887;
 
         private LinkedList<Stock>[] table;
-        
+
         public HashTable(int tableSize = 1000)
         {
             table = new LinkedList<Stock>[tableSize];
@@ -19,28 +19,27 @@ namespace UE1
                 table[i] = null;
             }
         }
-        
+
         public void AddStock(Stock stock)
         {
-            uint hashKey = GenerateHash(stock.name);
-
-            if (table[hashKey] != null)
+            if (GenerateHash(stock.name, out uint hashKey))
             {
-                table[hashKey].AddFirst(stock);
-            }
-            else
-            {
-                LinkedList<Stock> newList = new LinkedList<Stock>();
-                newList.AddFirst(stock);
-                table[hashKey] = newList;
+                if (table[hashKey] != null)
+                {
+                    table[hashKey].AddFirst(stock);
+                }
+                else
+                {
+                    LinkedList<Stock> newList = new LinkedList<Stock>();
+                    newList.AddFirst(stock);
+                    table[hashKey] = newList;
+                }
             }
         }
 
         public void RemoveStock(Stock stock)
         {
-            uint hashKey = GenerateHash(stock.name);
-
-            if (table[hashKey] != null)
+            if (GenerateHash(stock.name, out uint hashKey) && table[hashKey] != null)
             {
                 if (table[hashKey].Count == 1)
                 {
@@ -60,14 +59,27 @@ namespace UE1
                 }
             }
         }
-        
-        public Stock[] GetStock(string name)
+
+        public bool TryGetStock(string name, out Stock? stock)
         {
-            uint hashKey = GenerateHash(name);
-            return table[hashKey] != null ? table[hashKey].ToArray() : null;
+            stock = null;
+
+            if (GenerateHash(name, out uint hashKey))
+            {
+                foreach (Stock _stock in table[hashKey])
+                {
+                    if (_stock.name == name)
+                    {
+                        stock = _stock;
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         }
 
-        public uint GenerateHash(string name)
+        private bool GenerateHash(string name, out uint key)
         {
             double hashKey = 0;
 
@@ -76,9 +88,16 @@ namespace UE1
                 hashKey += table.Length * (name[i] * GoldenCut % 1);
             }
 
-            hashKey /= name.Length;
+            hashKey = Math.Floor(hashKey / name.Length);
 
-            return (uint)Math.Floor(hashKey);
+            key = (uint)hashKey;
+
+            if (hashKey < 0 || hashKey > 1000)
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

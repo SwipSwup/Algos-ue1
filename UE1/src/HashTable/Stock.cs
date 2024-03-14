@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace UE1
 {
@@ -8,6 +9,11 @@ namespace UE1
         public string name;
         public string sin;
         public string symbol;
+        public List<StockData> data;
+    }
+
+    public struct StockData
+    {
         public DateTime date;
         public double open;
         public double high;
@@ -15,6 +21,5 @@ namespace UE1
         public double close;
         public double adjClose;
         public uint volume;
-        
     }
 }
