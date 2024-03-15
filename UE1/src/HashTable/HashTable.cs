@@ -60,6 +60,7 @@ namespace UE1
                 }
             }
         }
+
         //todo Funktion sollte mit namen und mit kürzel suchen können
         public bool TryGetStock(string name, out Stock? stock)
         {
@@ -100,8 +101,8 @@ namespace UE1
 
             return true;
         }
-        
-        
+
+
         // TODO: Fix Error, David?
         public void SaveToFile(string filename)
         {
@@ -121,7 +122,8 @@ namespace UE1
                             // GIVES ERROR HERE
                             foreach (var stockData in stock.data)
                             {
-                                writer.WriteLine($"{stockData.date},{stockData.open},{stockData.high},{stockData.low},{stockData.close},{stockData.adjClose},{stockData.volume}");
+                                writer.WriteLine(
+                                    $"{stockData.date},{stockData.open},{stockData.high},{stockData.low},{stockData.close},{stockData.adjClose},{stockData.volume}");
                             }
                         }
                     }
@@ -130,7 +132,7 @@ namespace UE1
 
             Console.WriteLine($"Hash table saved to {fullFilePath}");
         }
-        
+
         // TODO: Test
         public void LoadFromFile(string filename)
         {

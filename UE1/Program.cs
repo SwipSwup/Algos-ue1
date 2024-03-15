@@ -12,6 +12,8 @@ namespace UE1
 
         public static void Main(string[] args)
         {
+            
+            
             while (true)
             {
                 Console.WriteLine("Enter 'add': Eine Aktie hinzufügen");
@@ -96,7 +98,7 @@ namespace UE1
                 {
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
-                    
+
                     stock.data.Add(new StockData
                     {
                         date = DateTime.Parse(values[0]),
@@ -134,33 +136,14 @@ namespace UE1
 
         private static void SearchStock()
         {
-            
-            Console.WriteLine("(1) Search by Stockname ");
-            Console.WriteLine("(2) Search by SIN ");
-            Console.WriteLine("Enter 1 or 2 to choose: ");
+            Console.WriteLine("Enter Stockname: ");
             string userInput = Console.ReadLine();
 
-            if (userInput == "1")
+            if (hashTable.TryGetStock(userInput, out Stock? s))
             {
-                Console.WriteLine("Enter Stockname: ");
-                userInput = Console.ReadLine();
-                hashTable.TryGetStock(userInput, out Stock? s);
-
-                Stock stock = (Stock)s;
-                Console.WriteLine(stock.data[0]);
+                Console.WriteLine(s);
+                Console.WriteLine(s?.data[0]);
             }
-            else if (userInput == "2")
-            {
-                Console.WriteLine("(2) Search by SIN ");
-            }
-            else
-            {
-                Console.WriteLine("Enter a number between 1-2");
-            }
-
-
         }
-
-
     }
 }

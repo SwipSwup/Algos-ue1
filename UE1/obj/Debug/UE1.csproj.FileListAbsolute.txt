@@ -16,3 +16,9 @@ C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyR
 C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
 C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.exe
 C:\Users\Prophecy\Desktop\new_David\Algos-ue1\UE1\obj\Debug\UE1.pdb
+C:\FH\SS2024\Algos\Algos-ue1\UE1\bin\Debug\UE1.exe
+C:\FH\SS2024\Algos\Algos-ue1\UE1\bin\Debug\UE1.pdb
+C:\FH\SS2024\Algos\Algos-ue1\UE1\obj\Debug\UE1.csproj.AssemblyReference.cache
+C:\FH\SS2024\Algos\Algos-ue1\UE1\obj\Debug\UE1.csproj.CoreCompileInputs.cache
+C:\FH\SS2024\Algos\Algos-ue1\UE1\obj\Debug\UE1.exe
+C:\FH\SS2024\Algos\Algos-ue1\UE1\obj\Debug\UE1.pdb
