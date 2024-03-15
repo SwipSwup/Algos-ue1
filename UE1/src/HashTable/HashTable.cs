@@ -102,6 +102,42 @@ namespace UE1
             return true;
         }
 
+        public void DeleteStock()
+        {
+            Console.WriteLine("Enter Stockname to delete;");
+            string stockName = Console.ReadLine();
+
+            GenerateHash(stockName, out uint key);
+
+            LinkedList<Stock> linkedList = table[key];
+
+            if (linkedList != null)
+            {
+                LinkedListNode<Stock> currentNode = linkedList.First;
+                while (currentNode != null)
+                {
+                    if (currentNode.Value.name == stockName)
+                    {
+                        linkedList.Remove(currentNode);
+                        Console.WriteLine($"Stock '{stockName}' deleted successfully");
+                        return;
+                    }
+
+                    currentNode = currentNode.Next;
+                }
+
+            }
+            else
+            {
+                Console.WriteLine("No Stocks Found ");
+            }
+
+
+
+                
+
+
+        }
 
         // TODO: Fix Error, David?
         public void SaveToFile(string filename)

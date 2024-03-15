@@ -34,6 +34,7 @@ namespace UE1
                         hashTable.AddStock(CreateStock());
                         break;
                     case "del":
+                        hashTable.DeleteStock();
                         break;
                     case "import":
                         ImportStock();
@@ -70,14 +71,15 @@ namespace UE1
             string fileName = Console.ReadLine();
             if (hashTable.TryGetStock(stockName, out Stock? s))
             {
-                if (!TryReadStockValuesFromCSV(fileName, (Stock)s))
+                Stock stock = (Stock)s;
+                if (!TryReadStockValuesFromCSV(fileName, ref stock))
                 {
                     Console.WriteLine("Cant read Stock");
                 }
             }
         }
 
-        private static bool TryReadStockValuesFromCSV(string fileName, Stock stock)
+        private static bool TryReadStockValuesFromCSV(string fileName, ref Stock stock)
         {
             string basePath = "../../../UE1/resources/";
             string fullFilePath = Path.Combine(basePath, fileName);
