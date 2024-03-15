@@ -23,7 +23,7 @@ namespace UE1
 
         public void AddStock(Stock stock)
         {
-            if (GenerateHash(stock.name, out uint hashKey))
+            if (GenerateHash(stock.Name, out uint hashKey))
             {
                 if (table[hashKey] != null)
                 {
@@ -38,9 +38,9 @@ namespace UE1
             }
         }
 
-        public void RemoveStock(Stock stock)
+        public bool TryRemoveStock(string name)
         {
-            if (GenerateHash(stock.name, out uint hashKey) && table[hashKey] != null)
+            if (GenerateHash(name, out uint hashKey) && table[hashKey] != null)
             {
                 if (table[hashKey].Count == 1)
                 {
@@ -50,19 +50,21 @@ namespace UE1
                 {
                     foreach (Stock item in table[hashKey])
                     {
-                        //todo test if equals works or if custom solution is needed
-                        if (item.Equals(stock))
+                        if (item.Name == name)
                         {
                             table[hashKey].Remove(item);
                             break;
                         }
                     }
                 }
+
+                return true;
             }
+
+            return false;
         }
 
-        //todo Funktion sollte mit namen und mit kürzel suchen können
-        public bool TryGetStock(string name, out Stock? stock)
+        public bool TryGetStock(string name, out Stock stock)
         {
             stock = null;
 
@@ -70,7 +72,7 @@ namespace UE1
             {
                 foreach (Stock _stock in table[hashKey])
                 {
-                    if (_stock.name == name)
+                    if (_stock.Name == name)
                     {
                         stock = _stock;
                         return true;
@@ -102,43 +104,6 @@ namespace UE1
             return true;
         }
 
-        public void DeleteStock()
-        {
-            Console.WriteLine("Enter Stockname to delete;");
-            string stockName = Console.ReadLine();
-
-            GenerateHash(stockName, out uint key);
-
-            LinkedList<Stock> linkedList = table[key];
-
-            if (linkedList != null)
-            {
-                LinkedListNode<Stock> currentNode = linkedList.First;
-                while (currentNode != null)
-                {
-                    if (currentNode.Value.name == stockName)
-                    {
-                        linkedList.Remove(currentNode);
-                        Console.WriteLine($"Stock '{stockName}' deleted successfully");
-                        return;
-                    }
-
-                    currentNode = currentNode.Next;
-                }
-
-            }
-            else
-            {
-                Console.WriteLine("No Stocks Found ");
-            }
-
-
-
-                
-
-
-        }
-
         // TODO: Fix Error, David?
         public void SaveToFile(string filename)
         {
@@ -153,7 +118,7 @@ namespace UE1
                     {
                         foreach (var stock in bucket)
                         {
-                            writer.WriteLine($"{stock.name},{stock.sin},{stock.symbol}");
+                            writer.WriteLine($"{stock.Name},{stock.Sin},{stock.Symbol}");
 
                             // GIVES ERROR HERE
                             foreach (var stockData in stock.data)
@@ -194,13 +159,8 @@ namespace UE1
                         continue;
                     }
 
-                    Stock newStock = new Stock
-                    {
-                        name = parts[0],
-                        sin = parts[1],
-                        symbol = parts[2],
-                        data = new List<StockData>()
-                    };
+                    Stock newStock = new Stock(parts[0], parts[1], parts[2]);
+                    newStock.data = new List<StockData>();
 
                     // Read stock data
                     while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))

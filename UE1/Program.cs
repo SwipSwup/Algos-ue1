@@ -12,8 +12,6 @@ namespace UE1
 
         public static void Main(string[] args)
         {
-            
-            
             while (true)
             {
                 Console.WriteLine("Enter 'add': Eine Aktie hinzufügen");
@@ -34,7 +32,7 @@ namespace UE1
                         hashTable.AddStock(CreateStock());
                         break;
                     case "del":
-                        hashTable.DeleteStock();
+                        DeleteStock();
                         break;
                     case "import":
                         ImportStock();
@@ -43,16 +41,13 @@ namespace UE1
                         SearchStock();
                         break;
                     case "plot":
+                        PlotStock();
                         break;
                     case "save":
-                        Console.WriteLine("Enter filename to save:");
-                        string saveFilename = Console.ReadLine();
-                        hashTable.SaveToFile(saveFilename);
+                        SaveHashtableToFile();
                         break;
                     case "load":
-                        Console.WriteLine("Enter filename to load:");
-                        string loadFilename = Console.ReadLine();
-                        hashTable.LoadFromFile(loadFilename);
+                       LoadHashtableFromFile();
                         break;
                     case "quit":
                         return;
@@ -63,23 +58,58 @@ namespace UE1
             }
         }
 
+        public static void PlotStock()
+        {
+            Console.WriteLine("Enter stockname to plot:");
+            string name = Console.ReadLine();
+
+            if (hashTable.TryGetStock(name, out Stock stock))
+            {
+                stock.Plot(30, 20);
+            }
+        }
+
+        public static void SaveHashtableToFile()
+        {
+            Console.WriteLine("Enter filename to save:");
+            string saveFilename = Console.ReadLine();
+            hashTable.SaveToFile(saveFilename);
+        }
+
+        public static void LoadHashtableFromFile()
+        {
+            Console.WriteLine("Enter filename to load:");
+            string loadFilename = Console.ReadLine();
+            hashTable.LoadFromFile(loadFilename);
+        }
+        
+        public static void DeleteStock()
+        {
+            Console.WriteLine("Enter Stockname to delete;");
+            string stockName = Console.ReadLine();
+
+            if (!hashTable.TryRemoveStock(stockName))
+            {
+                Console.WriteLine("Cant remove stock");
+            }
+        }
+
         private static void ImportStock()
         {
             Console.WriteLine("Enter Stockname to Insert Data");
             string stockName = Console.ReadLine();
             Console.WriteLine("Enter Filename for Import");
             string fileName = Console.ReadLine();
-            if (hashTable.TryGetStock(stockName, out Stock? s))
+            if (hashTable.TryGetStock(stockName, out Stock s))
             {
-                Stock stock = (Stock)s;
-                if (!TryReadStockValuesFromCSV(fileName, ref stock))
+                if (!TryReadStockValuesFromCSV(fileName, s))
                 {
                     Console.WriteLine("Cant read Stock");
                 }
             }
         }
 
-        private static bool TryReadStockValuesFromCSV(string fileName, ref Stock stock)
+        private static bool TryReadStockValuesFromCSV(string fileName, Stock stock)
         {
             string basePath = "../../../UE1/resources/";
             string fullFilePath = Path.Combine(basePath, fileName);
@@ -95,13 +125,13 @@ namespace UE1
             {
                 reader.ReadLine();
 
-                stock.data = new List<StockData>();
+                List<StockData> data = new List<StockData>();
                 while (!reader.EndOfStream)
                 {
                     string line = reader.ReadLine();
                     string[] values = line.Split(',');
 
-                    stock.data.Add(new StockData
+                    data.Add(new StockData
                     {
                         date = DateTime.Parse(values[0]),
                         open = double.Parse(values[1], System.Globalization.CultureInfo.InvariantCulture),
@@ -111,6 +141,8 @@ namespace UE1
                         adjClose = double.Parse(values[5], System.Globalization.CultureInfo.InvariantCulture),
                         volume = uint.Parse(values[6], System.Globalization.CultureInfo.InvariantCulture)
                     });
+                    
+                    stock.data = data;
                 }
             }
 
@@ -119,21 +151,16 @@ namespace UE1
 
         private static Stock CreateStock()
         {
-            Stock newStock = new Stock();
-
             Console.WriteLine("Enter Stockname: ");
-            string userInput = Console.ReadLine();
-            newStock.name = userInput;
+            string name = Console.ReadLine();
 
             Console.WriteLine("Enter SIN: ");
-            userInput = Console.ReadLine();
-            newStock.sin = userInput;
+            string sin = Console.ReadLine();
 
             Console.WriteLine("Enter Symbol: ");
-            userInput = Console.ReadLine();
-            newStock.symbol = userInput;
+            string symbol = Console.ReadLine();
 
-            return newStock;
+            return new Stock(name, sin, symbol);
         }
 
         private static void SearchStock()
@@ -141,10 +168,9 @@ namespace UE1
             Console.WriteLine("Enter Stockname: ");
             string userInput = Console.ReadLine();
 
-            if (hashTable.TryGetStock(userInput, out Stock? s))
+            if (hashTable.TryGetStock(userInput, out Stock s))
             {
-                Console.WriteLine(s);
-                Console.WriteLine(s?.data[0]);
+                //todo implement
             }
         }
     }
