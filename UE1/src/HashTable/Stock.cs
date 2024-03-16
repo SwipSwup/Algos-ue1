@@ -17,12 +17,12 @@ namespace UE1
         public string Sin { get; private set; }
         public string Symbol { get; private set; }
 
-        public List<StockData> data;
+        public List<StockData> Data = null;
 
 
         public void Plot(int width, int height)
         {
-            List<StockData> tmp = new List<StockData>(data);
+            List<StockData> tmp = new List<StockData>(Data);
             tmp.Reverse();
             tmp.RemoveRange(30, tmp.Count - 30);
             

@@ -47,6 +47,7 @@
     </ItemGroup>
     <ItemGroup>
       <Content Include="resources\MSFT.csv" />
+      <Content Include="resources\TSLA.csv" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="resources\saved\" />

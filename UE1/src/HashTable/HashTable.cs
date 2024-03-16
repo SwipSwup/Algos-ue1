@@ -112,20 +112,22 @@ namespace UE1
 
             using (StreamWriter writer = new StreamWriter(fullFilePath))
             {
-                foreach (var bucket in table)
+                foreach (LinkedList<Stock> bucket in table)
                 {
-                    if (bucket != null)
-                    {
-                        foreach (var stock in bucket)
-                        {
-                            writer.WriteLine($"{stock.Name},{stock.Sin},{stock.Symbol}");
+                    if (bucket == null)
+                        continue;
 
-                            // GIVES ERROR HERE
-                            foreach (var stockData in stock.data)
-                            {
-                                writer.WriteLine(
-                                    $"{stockData.date},{stockData.open},{stockData.high},{stockData.low},{stockData.close},{stockData.adjClose},{stockData.volume}");
-                            }
+                    foreach (Stock stock in bucket)
+                    {
+                        writer.WriteLine($"{stock.Name};{stock.Sin};{stock.Symbol}");
+
+                        // GIVES ERROR HERE
+                        if (stock.Data == null)
+                            continue;
+                        foreach (StockData stockData in stock.Data)
+                        {
+                            writer.WriteLine(
+                                $"{stockData.date};{stockData.open};{stockData.high};{stockData.low};{stockData.close};{stockData.adjClose};{stockData.volume}");
                         }
                     }
                 }
@@ -151,8 +153,8 @@ namespace UE1
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-                    string[] parts = line.Split(',');
-
+                    string[] parts = line.Split(';');
+                    
                     if (parts.Length < 3)
                     {
                         Console.WriteLine($"Invalid line: {line}");
@@ -160,12 +162,12 @@ namespace UE1
                     }
 
                     Stock newStock = new Stock(parts[0], parts[1], parts[2]);
-                    newStock.data = new List<StockData>();
+                    newStock.Data = new List<StockData>();
 
                     // Read stock data
                     while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
                     {
-                        parts = line.Split(',');
+                        parts = line.Split(';');
                         if (parts.Length != 7)
                         {
                             Console.WriteLine($"Invalid stock data line: {line}");
@@ -183,7 +185,7 @@ namespace UE1
                             volume = uint.Parse(parts[6], System.Globalization.CultureInfo.InvariantCulture)
                         };
 
-                        newStock.data.Add(data);
+                        newStock.Data.Add(data);
                     }
 
                     AddStock(newStock);

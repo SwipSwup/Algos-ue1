@@ -143,7 +143,7 @@ namespace UE1
                         volume = uint.Parse(values[6], System.Globalization.CultureInfo.InvariantCulture)
                     });
                     
-                    stock.data = data;
+                    stock.Data = data;
                 }
             }
 
@@ -175,13 +175,13 @@ namespace UE1
                 Console.WriteLine("Stockname: " + s.Name);
                 Console.WriteLine("SIN: " + s.Sin);
                 Console.WriteLine("Symbol: " + s.Symbol);
-                Console.WriteLine("Date: " + s.data[s.data.Count-1].date.ToString("dd/MM/yyyy"));
-                Console.WriteLine("Open: " + s.data[s.data.Count-1].open);
-                Console.WriteLine("High: " + s.data[s.data.Count-1].high);
-                Console.WriteLine("Low: " + s.data[s.data.Count-1].low);
-                Console.WriteLine("Close: " + s.data[s.data.Count-1].close);
-                Console.WriteLine("adjClose: " + s.data[s.data.Count-1].adjClose);
-                Console.WriteLine("Volume: " + s.data[s.data.Count-1].volume);
+                Console.WriteLine("Date: " + s.Data[s.Data.Count-1].date.ToString("dd/MM/yyyy"));
+                Console.WriteLine("Open: " + s.Data[s.Data.Count-1].open);
+                Console.WriteLine("High: " + s.Data[s.Data.Count-1].high);
+                Console.WriteLine("Low: " + s.Data[s.Data.Count-1].low);
+                Console.WriteLine("Close: " + s.Data[s.Data.Count-1].close);
+                Console.WriteLine("adjClose: " + s.Data[s.Data.Count-1].adjClose);
+                Console.WriteLine("Volume: " + s.Data[s.Data.Count-1].volume);
             }
         }
     }
