@@ -16,7 +16,6 @@
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HashTable/HashTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTable/HashTable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +41,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.UE1.executor": "Debug",
+    ".NET Project.UE1.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -97,6 +96,7 @@
       <workItem from="1709818433084" duration="3074000" />
       <workItem from="1709824238542" duration="1047000" />
       <workItem from="1710508441992" duration="5204000" />
+      <workItem from="1710598932944" duration="1001000" />
     </task>
     <servers />
   </component>
@@ -111,13 +111,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/Program.cs</url>
-          <line>42</line>
+          <line>43</line>
           <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\Program.cs" initialLine="41" containingFunctionPresentation="Method 'Main'">
             <startOffsets>
-              <option value="1580" />
+              <option value="1599" />
             </startOffsets>
             <endOffsets>
-              <option value="1594" />
+              <option value="1613" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="5" />

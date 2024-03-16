@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Remoting.Messaging;
 
 namespace UE1
@@ -171,6 +172,16 @@ namespace UE1
             if (hashTable.TryGetStock(userInput, out Stock s))
             {
                 //todo implement
+                Console.WriteLine("Stockname: " + s.Name);
+                Console.WriteLine("SIN: " + s.Sin);
+                Console.WriteLine("Symbol: " + s.Symbol);
+                Console.WriteLine("Date: " + s.data[s.data.Count-1].date.ToString("dd/MM/yyyy"));
+                Console.WriteLine("Open: " + s.data[s.data.Count-1].open);
+                Console.WriteLine("High: " + s.data[s.data.Count-1].high);
+                Console.WriteLine("Low: " + s.data[s.data.Count-1].low);
+                Console.WriteLine("Close: " + s.data[s.data.Count-1].close);
+                Console.WriteLine("adjClose: " + s.data[s.data.Count-1].adjClose);
+                Console.WriteLine("Volume: " + s.data[s.data.Count-1].volume);
             }
         }
     }
