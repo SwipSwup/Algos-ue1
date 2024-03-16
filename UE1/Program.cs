@@ -65,7 +65,7 @@ namespace UE1
 
             if (hashTable.TryGetStock(name, out Stock stock))
             {
-                stock.Plot(30, 20);
+                stock.Plot(100, 30);
             }
         }
 

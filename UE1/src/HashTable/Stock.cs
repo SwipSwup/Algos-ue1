@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Threading;
 
 namespace UE1
 {
@@ -26,73 +24,77 @@ namespace UE1
         {
             List<StockData> tmp = new List<StockData>(data);
             tmp.Reverse();
-            int[] normalized =
-                NormalizeDataPoints(tmp, GetLowestPoint(tmp, width), GetHighestPoint(tmp, width), height);
+            tmp.RemoveRange(30, tmp.Count - 30);
+            
+            double max = double.MinValue;
+            double min = double.MaxValue;
+            foreach (StockData value in tmp)
+            {
+                if (value.adjClose > max)
+                    max = value.adjClose;
+                if (value.adjClose < min)
+                    min = value.adjClose;
+            }
 
-            char[,] dataPoints = new char[height, width];
+            double valueRange = max - min;
+            double yScale = valueRange != 0 ? height / valueRange : 1;
+            double xScale = (double)width / tmp.Count;
+
+            char[,] plot = new char[height, width];
 
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    dataPoints[y,x] = ' ';
+                    plot[y, x] = ' ';
                 }
             }
-            
-            for (int i = 0; i < normalized.Length; i++)
+
+
+            for (int i = 0; i < tmp.Count - 1; i++)
             {
-                if(height - normalized[i] >= height)
-                    continue;
-                Console.WriteLine(height - normalized[i]);
-                dataPoints[height - normalized[i], i] = '*';
+                int x1 = (int)(i * xScale);
+                int x2 = (int)((i + 1) * xScale);
+                int y1 = (int)((max - tmp[i].adjClose) * yScale);
+                int y2 = (int)((max - tmp[i + 1].adjClose) * yScale);
+                DrawLine(plot, x1, y1, x2, y2, '*');
             }
-            
+
             for (int y = 0; y < height; y++)
             {
                 for (int x = 0; x < width; x++)
                 {
-                    Console.Write(dataPoints[y, x]);
+                    Console.Write(plot[y, x]);
                 }
 
                 Console.WriteLine();
             }
         }
-
-        private int[] NormalizeDataPoints(List<StockData> data, double min, double max, int height)
+        private void DrawLine(char[,] plot, int x0, int y0, int x1, int y1, char symbol)
         {
-            int[] points = new int[30];
-            for (int i = 0; i < 30; i++)
+            int dx = Math.Abs(x1 - x0);
+            int dy = Math.Abs(y1 - y0);
+            int sx = x0 < x1 ? 1 : -1;
+            int sy = y0 < y1 ? 1 : -1;
+            int err = dx - dy;
+
+            while (x0 != x1 || y0 != y1)
             {
-                points[i] = (int)((data[i].adjClose - min) / (max - min) * height);
+                if (x0 >= 0 && y0 >= 0 && x0 < plot.GetLength(1) && y0 < plot.GetLength(0))
+                    plot[y0, x0] = symbol;
+
+                int e2 = 2 * err;
+                if (e2 > -dy)
+                {
+                    err -= dy;
+                    x0 += sx;
+                }
+                if (e2 < dx)
+                {
+                    err += dx;
+                    y0 += sy;
+                }
             }
-
-            return points;
-        }
-
-        private double GetHighestPoint(List<StockData> data, int n)
-        {
-            double max = 0;
-
-            for (int i = 0; i < n; i++)
-            {
-                if (data[i].adjClose > max)
-                    max = data[i].adjClose;
-            }
-
-            return max;
-        }
-
-        private double GetLowestPoint(List<StockData> data, int n)
-        {
-            double min = Double.MaxValue;
-
-            for (int i = 0; i < n; i++)
-            {
-                if (data[i].adjClose < min)
-                    min = data[i].adjClose;
-            }
-
-            return min;
         }
     }
 
