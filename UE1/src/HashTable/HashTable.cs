@@ -27,7 +27,7 @@ namespace UE1
             }
         }
         
-        public void AddStockByStock(Stock stock)
+        public void AddStockBySymbol(Stock stock)
         {
             if (GenerateHash(stock.Symbol, out uint hashKey)) // Hashwert generieren
             {
