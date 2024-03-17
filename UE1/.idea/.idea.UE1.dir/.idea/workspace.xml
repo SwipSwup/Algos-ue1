@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.csproj.CoreCompileInputs.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.pdb" afterDir="false" />
     </list>
@@ -41,7 +40,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.UE1.executor": "Run",
+    ".NET Project.UE1.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -97,6 +96,7 @@
       <workItem from="1709824238542" duration="1047000" />
       <workItem from="1710508441992" duration="5204000" />
       <workItem from="1710598932944" duration="1001000" />
+      <workItem from="1710695396650" duration="1522000" />
     </task>
     <servers />
   </component>
@@ -110,43 +110,17 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Program.cs</url>
-          <line>43</line>
-          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\Program.cs" initialLine="41" containingFunctionPresentation="Method 'Main'">
-            <startOffsets>
-              <option value="1599" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1613" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
           <url>file://$PROJECT_DIR$/src/HashTable/HashTable.cs</url>
-          <line>65</line>
-          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="65" containingFunctionPresentation="Method 'TryGetStock'">
+          <line>178</line>
+          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="178" containingFunctionPresentation="Method 'LoadFromFile'">
             <startOffsets>
-              <option value="1856" />
+              <option value="6094" />
             </startOffsets>
             <endOffsets>
-              <option value="1857" />
+              <option value="6095" />
             </endOffsets>
           </properties>
           <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/HashTable/HashTable.cs</url>
-          <line>105</line>
-          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="105" containingFunctionPresentation="Method 'DeleteStock'">
-            <startOffsets>
-              <option value="2792" />
-            </startOffsets>
-            <endOffsets>
-              <option value="2793" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
