@@ -14,27 +14,14 @@ namespace UE1
         public HashTable(int tableSize = 1000)
         {
             table = new LinkedList<Stock>[tableSize];
-
-            for (int i = 0; i < table.Length; i++)
-            {
-                table[i] = null;
-            }
         }
 
         public void AddStock(Stock stock)
         {
             if (GenerateHash(stock.Name, out uint hashKey))
             {
-                if (table[hashKey] != null)
-                {
-                    table[hashKey].AddFirst(stock);
-                }
-                else
-                {
-                    LinkedList<Stock> newList = new LinkedList<Stock>();
-                    newList.AddFirst(stock);
-                    table[hashKey] = newList;
-                }
+                table[hashKey] ??= new LinkedList<Stock>();
+                table[hashKey].AddFirst(stock);
             }
         }
 
@@ -45,16 +32,15 @@ namespace UE1
                 if (table[hashKey].Count == 1)
                 {
                     table[hashKey] = null;
+                    return true;
                 }
-                else
+
+                foreach (Stock item in table[hashKey])
                 {
-                    foreach (Stock item in table[hashKey])
+                    if (item.Name == name)
                     {
-                        if (item.Name == name)
-                        {
-                            table[hashKey].Remove(item);
-                            break;
-                        }
+                        table[hashKey].Remove(item);
+                        break;
                     }
                 }
 
@@ -68,7 +54,7 @@ namespace UE1
         {
             stock = null;
 
-            if (GenerateHash(name, out uint hashKey))
+            if (GenerateHash(name, out uint hashKey) && table[hashKey] != null)
             {
                 foreach (Stock _stock in table[hashKey])
                 {
@@ -110,25 +96,24 @@ namespace UE1
             string basePath = "../../../UE1/resources/saved/";
             string fullFilePath = Path.Combine(basePath, "SAVED_" + filename + ".csv");
 
-            using (StreamWriter writer = new StreamWriter(fullFilePath))
+            using StreamWriter writer = new StreamWriter(fullFilePath);
+
+            foreach (LinkedList<Stock> bucket in table)
             {
-                foreach (LinkedList<Stock> bucket in table)
+                if (bucket == null)
+                    continue;
+
+                foreach (Stock stock in bucket)
                 {
-                    if (bucket == null)
+                    writer.WriteLine($"{stock.Name};{stock.Sin};{stock.Symbol}");
+
+                    // GIVES ERROR HERE
+                    if (stock.Data == null)
                         continue;
-
-                    foreach (Stock stock in bucket)
+                    foreach (StockData stockData in stock.Data)
                     {
-                        writer.WriteLine($"{stock.Name};{stock.Sin};{stock.Symbol}");
-
-                        // GIVES ERROR HERE
-                        if (stock.Data == null)
-                            continue;
-                        foreach (StockData stockData in stock.Data)
-                        {
-                            writer.WriteLine(
-                                $"{stockData.date};{stockData.open};{stockData.high};{stockData.low};{stockData.close};{stockData.adjClose};{stockData.volume}");
-                        }
+                        writer.WriteLine(
+                            $"{stockData.date};{stockData.open};{stockData.high};{stockData.low};{stockData.close};{stockData.adjClose};{stockData.volume}");
                     }
                 }
             }
@@ -148,48 +133,47 @@ namespace UE1
                 return;
             }
 
-            using (StreamReader reader = new StreamReader(fullFilePath))
+            using StreamReader reader = new StreamReader(fullFilePath);
+
+            string line;
+            while ((line = reader.ReadLine()) != null)
             {
-                string line;
-                while ((line = reader.ReadLine()) != null)
+                string[] parts = line.Split(';');
+
+                if (parts.Length < 3)
                 {
-                    string[] parts = line.Split(';');
-                    
-                    if (parts.Length < 3)
+                    Console.WriteLine($"Invalid line: {line}");
+                    continue;
+                }
+
+                Stock newStock = new Stock(parts[0], parts[1], parts[2]);
+                newStock.Data = new List<StockData>();
+
+                // Read stock data
+                while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
+                {
+                    parts = line.Split(';');
+                    if (parts.Length != 7)
                     {
-                        Console.WriteLine($"Invalid line: {line}");
+                        Console.WriteLine($"Invalid stock data line: {line}");
                         continue;
                     }
 
-                    Stock newStock = new Stock(parts[0], parts[1], parts[2]);
-                    newStock.Data = new List<StockData>();
-
-                    // Read stock data
-                    while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
+                    StockData data = new StockData
                     {
-                        parts = line.Split(';');
-                        if (parts.Length != 7)
-                        {
-                            Console.WriteLine($"Invalid stock data line: {line}");
-                            continue;
-                        }
+                        date = DateTime.Parse(parts[0]),
+                        open = double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture),
+                        high = double.Parse(parts[2], System.Globalization.CultureInfo.InvariantCulture),
+                        low = double.Parse(parts[3], System.Globalization.CultureInfo.InvariantCulture),
+                        close = double.Parse(parts[4], System.Globalization.CultureInfo.InvariantCulture),
+                        adjClose = double.Parse(parts[5], System.Globalization.CultureInfo.InvariantCulture),
+                        volume = uint.Parse(parts[6], System.Globalization.CultureInfo.InvariantCulture)
+                    };
 
-                        StockData data = new StockData
-                        {
-                            date = DateTime.Parse(parts[0]),
-                            open = double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture),
-                            high = double.Parse(parts[2], System.Globalization.CultureInfo.InvariantCulture),
-                            low = double.Parse(parts[3], System.Globalization.CultureInfo.InvariantCulture),
-                            close = double.Parse(parts[4], System.Globalization.CultureInfo.InvariantCulture),
-                            adjClose = double.Parse(parts[5], System.Globalization.CultureInfo.InvariantCulture),
-                            volume = uint.Parse(parts[6], System.Globalization.CultureInfo.InvariantCulture)
-                        };
-
-                        newStock.Data.Add(data);
-                    }
-
-                    AddStock(newStock);
+                    newStock.Data.Add(data);
                 }
+
+                AddStock(newStock);
             }
 
             Console.WriteLine($"Hash table loaded from {fullFilePath}");
