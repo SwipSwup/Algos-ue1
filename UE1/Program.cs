@@ -109,7 +109,7 @@ namespace UE1
             Console.WriteLine("Geben Sie den Aktiennamen zum Löschen ein:");
             string stockName = Console.ReadLine();
             Stopwatch watch = Stopwatch.StartNew(); 
-            if (!hashTable.TryRemoveStock(stockName)) // Versuche Aktie aus Hashtable zu entfernen
+            if (!hashTable.TryRemoveStockByName(stockName)) // Versuche Aktie aus Hashtable zu entfernen
             {
                 Console.WriteLine(
                     "Aktie kann nicht entfernt werden");

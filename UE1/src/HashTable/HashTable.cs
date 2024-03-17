@@ -28,7 +28,7 @@ namespace UE1
         }
 
         // Aktie aus der Hashtabelle entfernen
-        public bool TryRemoveStock(string name)
+        public bool TryRemoveStockByName(string name)
         {
             if (GenerateHash(name, out uint hashKey) && table[hashKey] != null)
             {
@@ -52,9 +52,33 @@ namespace UE1
 
             return false;
         }
+        
+        public bool TryRemoveStockBySymbol(string symbol)
+        {
+            if (GenerateHash(symbol, out uint hashKey) && table[hashKey] != null)
+            {
+                if (table[hashKey].Count == 1) // Wenn nur ein Element im Stock
+                {
+                    table[hashKey] = null; // Stock entfernen
+                    return true;
+                }
 
-        // Aktie aus der Hashtabelle abrufen
-        public bool TryGetStock(string name, out Stock stock)
+                foreach (Stock item in table[hashKey]) // Durch Stock iterieren
+                {
+                    if (item.Symbol == symbol) // Wenn Aktie gefunden
+                    {
+                        table[hashKey].Remove(item); // Aktie entfernen
+                        break;
+                    }
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+        
+        public bool TryGetStockByName(string name, out Stock stock)
         {
             stock = null;
 
@@ -72,18 +96,37 @@ namespace UE1
 
             return false;
         }
+        
+        public bool TryGetStockBySymbol(string symbol, out Stock stock)
+        {
+            stock = null;
+
+            if (GenerateHash(symbol, out uint hashKey) && table[hashKey] != null)
+            {
+                foreach (Stock _stock in table[hashKey]) // Durch Stock iterieren
+                {
+                    if (_stock.Symbol == symbol) // Wenn Aktie gefunden
+                    {
+                        stock = _stock; // Aktie zuweisen
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
 
         // Hashwert für einen gegebenen Namen generieren
-        private bool GenerateHash(string name, out uint key)
+        private bool GenerateHash(string symbol, out uint key)
         {
             double hashKey = 0;
 
-            for (int i = 0; i < name.Length; i++) // Durch Zeichen im Namen iterieren
+            for (int i = 0; i < symbol.Length; i++) // Durch Zeichen im Namen iterieren
             {
-                hashKey += table.Length * (name[i] * GoldenCut % 1); // Hashwert berechnen
+                hashKey += table.Length * (symbol[i] * GoldenCut % 1); // Hashwert berechnen
             }
 
-            hashKey = Math.Floor(hashKey / name.Length); // Hashwert normalisieren
+            hashKey = Math.Floor(hashKey / symbol.Length); // Hashwert normalisieren
 
             key = (uint)hashKey;
 
