@@ -186,11 +186,17 @@ namespace UE1
                 return;
             }
 
+
             using StreamReader reader = new StreamReader(fullFilePath); // Datei zum Lesen öffnen
 
-            string line;
-            while ((line = reader.ReadLine()) != null) // Jede Zeile lesen
+            string line = reader.ReadLine();
+            while (true) // Jede Zeile lesen
             {
+                if (line == null)
+                {
+                    break;
+                }
+
                 string[] parts = line.Split(';'); // Zeile nach Trennzeichen aufteilen
 
                 if (parts.Length < 3) // Format der Zeile überprüfen
@@ -206,11 +212,16 @@ namespace UE1
                 while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
                 {
                     parts = line.Split(';'); // Zeile nach Trennzeichen aufteilen
+
+
+
                     if (parts.Length != 7) // Datenformat überprüfen
                     {
                         Console.WriteLine($"Ungültige Aktiendatenzeile: {line}");
-                        continue;
+                        break;
                     }
+
+
 
                     StockData data = new StockData // Aktiendatenobjekt erstellen
                     {

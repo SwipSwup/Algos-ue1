@@ -9,12 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3080413e-d61e-423c-9d18-23e30a6a5bb6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.UE1.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.UE1.dir/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/UE1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.csproj.AssemblyReference.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.exe" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/obj/Debug/UE1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/UE1.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/HashTable/HashTable.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/HashTable/HashTable.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,7 +39,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    ".NET Project.UE1.executor": "Debug",
+    ".NET Project.UE1.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -96,7 +95,7 @@
       <workItem from="1709824238542" duration="1047000" />
       <workItem from="1710508441992" duration="5204000" />
       <workItem from="1710598932944" duration="1001000" />
-      <workItem from="1710695396650" duration="1522000" />
+      <workItem from="1710695396650" duration="7389000" />
     </task>
     <servers />
   </component>
@@ -107,23 +106,6 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/src/HashTable/HashTable.cs</url>
-          <line>178</line>
-          <properties documentPath="C:\FH\SS24\ALGOS\Algos-ue1\UE1\src\HashTable\HashTable.cs" initialLine="178" containingFunctionPresentation="Method 'LoadFromFile'">
-            <startOffsets>
-              <option value="6094" />
-            </startOffsets>
-            <endOffsets>
-              <option value="6095" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
     <pin-to-top-manager>
       <pinned-members>
         <PinnedItemInfo parentTag="Frame#UE1.Program.SearchStock" memberName="s" />
