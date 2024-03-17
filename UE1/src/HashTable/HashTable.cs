@@ -25,11 +25,8 @@ namespace UE1
                 table[hashKey] ??= new LinkedList<Stock>(); // Stock initialisieren, falls null
                 table[hashKey].AddFirst(stock); // Aktie dem Stock hinzufügen
             }
-        }
-        
-        public void AddStockBySymbol(Stock stock)
-        {
-            if (GenerateHash(stock.Symbol, out uint hashKey)) // Hashwert generieren
+
+            if (GenerateHash(stock.Symbol, out hashKey)) // Hashwert generieren
             {
                 table[hashKey] ??= new LinkedList<Stock>(); // Stock initialisieren, falls null
                 table[hashKey].AddFirst(stock); // Aktie dem Stock hinzufügen
@@ -61,7 +58,7 @@ namespace UE1
 
             return false;
         }
-        
+
         public bool TryRemoveStockBySymbol(string symbol)
         {
             if (GenerateHash(symbol, out uint hashKey) && table[hashKey] != null)
@@ -86,7 +83,7 @@ namespace UE1
 
             return false;
         }
-        
+
         public bool TryGetStockByName(string name, out Stock stock)
         {
             stock = null;
@@ -105,7 +102,7 @@ namespace UE1
 
             return false;
         }
-        
+
         public bool TryGetStockBySymbol(string symbol, out Stock stock)
         {
             stock = null;
@@ -163,7 +160,7 @@ namespace UE1
                 foreach (Stock stock in bucket) // Durch Aktien im Stock iterieren
                 {
                     writer.WriteLine($"{stock.Name};{stock.Sin};{stock.Symbol}"); // Aktieninfo schreiben
-                    
+
                     if (stock.Data == null)
                         continue;
                     foreach (StockData stockData in stock.Data) // Durch Aktiendaten iterieren
@@ -218,12 +215,18 @@ namespace UE1
                     StockData data = new StockData // Aktiendatenobjekt erstellen
                     {
                         date = DateTime.Parse(parts[0]), // Datum parsen
-                        open = double.Parse(parts[1], System.Globalization.CultureInfo.InvariantCulture), // Öffnungspreis parsen
-                        high = double.Parse(parts[2], System.Globalization.CultureInfo.InvariantCulture), // Höchstpreis parsen
-                        low = double.Parse(parts[3], System.Globalization.CultureInfo.InvariantCulture), // Tiefstpreis parsen
-                        close = double.Parse(parts[4], System.Globalization.CultureInfo.InvariantCulture), // Schlusspreis parsen
-                        adjClose = double.Parse(parts[5], System.Globalization.CultureInfo.InvariantCulture), // Angepasster Schlusspreis parsen
-                        volume = uint.Parse(parts[6], System.Globalization.CultureInfo.InvariantCulture) // Volumen parsen
+                        open = double.Parse(parts[1],
+                            System.Globalization.CultureInfo.InvariantCulture), // Öffnungspreis parsen
+                        high = double.Parse(parts[2],
+                            System.Globalization.CultureInfo.InvariantCulture), // Höchstpreis parsen
+                        low = double.Parse(parts[3],
+                            System.Globalization.CultureInfo.InvariantCulture), // Tiefstpreis parsen
+                        close = double.Parse(parts[4],
+                            System.Globalization.CultureInfo.InvariantCulture), // Schlusspreis parsen
+                        adjClose = double.Parse(parts[5],
+                            System.Globalization.CultureInfo.InvariantCulture), // Angepasster Schlusspreis parsen
+                        volume = uint.Parse(parts[6],
+                            System.Globalization.CultureInfo.InvariantCulture) // Volumen parsen
                     };
 
                     newStock.Data.Add(data); // Aktiendaten zum Aktienobjekt hinzufügen
