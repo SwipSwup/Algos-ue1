@@ -211,17 +211,18 @@ namespace UE1
                 // Aktiendaten lesen
                 while ((line = reader.ReadLine()) != null && !string.IsNullOrWhiteSpace(line))
                 {
-                    parts = line.Split(';'); // Zeile nach Trennzeichen aufteilen
+                    parts = line.Replace(',', '.').Split(';'); // Zeile nach Trennzeichen aufteilen
 
-
+                    if (parts.Length == 3)
+                    {
+                        break;
+                    }
 
                     if (parts.Length != 7) // Datenformat überprüfen
                     {
                         Console.WriteLine($"Ungültige Aktiendatenzeile: {line}");
                         break;
                     }
-
-
 
                     StockData data = new StockData // Aktiendatenobjekt erstellen
                     {
