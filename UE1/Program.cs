@@ -33,7 +33,7 @@ namespace UE1
                     case "add":
                         Stock stock = CreateStock();
                         Stopwatch watch = Stopwatch.StartNew();
-                        hashTable.AddStock(stock);
+                        hashTable.AddStockByName(stock);
                         watch.Stop();
                         Console.WriteLine("Create Stock: " + watch.Elapsed);
                         break;

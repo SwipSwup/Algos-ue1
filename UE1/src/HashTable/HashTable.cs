@@ -18,9 +18,18 @@ namespace UE1
         }
 
         // Aktie zur Hashtabelle hinzufügen
-        public void AddStock(Stock stock)
+        public void AddStockByName(Stock stock)
         {
             if (GenerateHash(stock.Name, out uint hashKey)) // Hashwert generieren
+            {
+                table[hashKey] ??= new LinkedList<Stock>(); // Stock initialisieren, falls null
+                table[hashKey].AddFirst(stock); // Aktie dem Stock hinzufügen
+            }
+        }
+        
+        public void AddStockByStock(Stock stock)
+        {
+            if (GenerateHash(stock.Symbol, out uint hashKey)) // Hashwert generieren
             {
                 table[hashKey] ??= new LinkedList<Stock>(); // Stock initialisieren, falls null
                 table[hashKey].AddFirst(stock); // Aktie dem Stock hinzufügen
@@ -220,7 +229,7 @@ namespace UE1
                     newStock.Data.Add(data); // Aktiendaten zum Aktienobjekt hinzufügen
                 }
 
-                AddStock(newStock); // Aktie zur Hashtabelle hinzufügen
+                AddStockByName(newStock); // Aktie zur Hashtabelle hinzufügen
             }
 
             Console.WriteLine($"Hash-Tabelle geladen aus {fullFilePath}");
