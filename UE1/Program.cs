@@ -32,10 +32,10 @@ namespace UE1
                     // 00:00:00.0003859
                     case "add":
                         Stock stock = CreateStock();
-                        Stopwatch watch = Stopwatch.StartNew();
+                        //Stopwatch watch = Stopwatch.StartNew();
                         hashTable.AddStockByName(stock);
-                        watch.Stop();
-                        Console.WriteLine("Create Stock: " + watch.Elapsed);
+                        //watch.Stop();
+                        //Console.WriteLine("Create Stock: " + watch.Elapsed);
                         break;
                     // 00:00:00.0003670
                     case "del":
@@ -82,14 +82,14 @@ namespace UE1
                 Console.WriteLine("Geben Sie den Aktiennamen für das Diagramm ein:");
                 string name = Console.ReadLine();
 
-                Stopwatch watch = Stopwatch.StartNew();
+                //Stopwatch watch = Stopwatch.StartNew();
                 if (hashTable.TryGetStockByName(name, out Stock stock)) // Versuche Aktie aus Hashtable zu erhalten
                 {
                     stock.Plot(100, 30); // Plot-Funktion für Aktie aufrufen
                 }
 
-                watch.Stop();
-                Console.WriteLine("Aktie erstellen: " + watch.Elapsed); // Ausgabe der Zeit zur Aktienerstellung
+                //watch.Stop();
+                //Console.WriteLine("Aktie erstellen: " + watch.Elapsed); // Ausgabe der Zeit zur Aktienerstellung
                 return;
             }
 
@@ -109,46 +109,89 @@ namespace UE1
 
                 return;
             }
+
             Console.WriteLine("Ungültige Eingabe");
-
-            }
-
-
+        }
 
 
         public static void SaveHashtableToFile()
         {
             Console.WriteLine("Geben Sie den Dateinamen zum Speichern ein:");
             string saveFilename = Console.ReadLine();
-            Stopwatch watch = Stopwatch.StartNew(); 
+            //Stopwatch watch = Stopwatch.StartNew();
             hashTable.SaveToFile(saveFilename); // Hashtable in Datei speichern
-            watch.Stop(); 
-            Console.WriteLine("Hashtable speichern: " + watch.Elapsed); // Ausgabe der Zeit zum Speichern der Hashtable
+            //watch.Stop();
+            //Console.WriteLine("Hashtable speichern: " + watch.Elapsed); // Ausgabe der Zeit zum Speichern der Hashtable
         }
 
         public static void LoadHashtableFromFile()
         {
             Console.WriteLine("Geben Sie den Dateinamen zum Laden ein:");
             string loadFilename = Console.ReadLine();
-            Stopwatch watch = Stopwatch.StartNew(); 
+            //Stopwatch watch = Stopwatch.StartNew();
             hashTable.LoadFromFile(loadFilename); // Hashtable aus Datei laden
-            watch.Stop(); 
-            Console.WriteLine("Hashtable laden: " + watch.Elapsed); // Ausgabe der Zeit zum Laden der Hashtable
+            //watch.Stop();
+            //Console.WriteLine("Hashtable laden: " + watch.Elapsed); // Ausgabe der Zeit zum Laden der Hashtable
         }
 
         public static void DeleteStock()
         {
-            Console.WriteLine("Geben Sie den Aktiennamen zum Löschen ein:");
-            string stockName = Console.ReadLine();
-            Stopwatch watch = Stopwatch.StartNew(); 
-            if (!hashTable.TryRemoveStockByName(stockName)) // Versuche Aktie aus Hashtable zu entfernen
+            Console.WriteLine("Bitte wählen Sie (1 - 2): ");
+            Console.WriteLine("(1)Aktie nach Namen suchen");
+            Console.WriteLine("(2) Aktie nach Symbol suchen");
+
+            string userInput = Console.ReadLine();
+
+            //Stopwatch watch = Stopwatch.StartNew();
+
+            string stockName = default;
+            string stockSymbol = default;
+
+            switch (userInput)
+            {
+                case "1":
+                {
+                    Console.WriteLine("Geben Sie den Aktiennamen zum Löschen ein:");
+                    stockName = Console.ReadLine();
+
+                    if (hashTable.TryGetStockByName(stockName, out Stock stock))
+                    {
+                        stockSymbol = stock.Symbol;
+                    }
+
+                    break;
+                }
+                case "2":
+                {
+                    Console.WriteLine("Geben Sie das Aktienkürzel zum Löschen ein:");
+                    stockSymbol = Console.ReadLine();
+
+                    if (hashTable.TryGetStockBySymbol(stockSymbol, out Stock stock))
+                    {
+                        stockName = stock.Name;
+                    }
+
+                    break;
+                }
+                default:
+                    Console.WriteLine("Ungültige Eingabe");
+                    return;
+            }
+
+            if (hashTable.TryRemoveStockByName(stockName)) // Versuche Aktie aus Hashtable zu entfernen
+            {
+                Console.WriteLine(
+                    "Aktie kann nicht entfernt werden");
+            }
+            
+            if (hashTable.TryRemoveStockBySymbol(stockSymbol)) // Versuche Aktie aus Hashtable zu entfernen
             {
                 Console.WriteLine(
                     "Aktie kann nicht entfernt werden");
             }
 
-            watch.Stop(); 
-            Console.WriteLine("Aktie löschen: " + watch.Elapsed); // Ausgabe der Zeit zum Löschen der Aktie
+            //watch.Stop();
+            //Console.WriteLine("Aktie löschen: " + watch.Elapsed); // Ausgabe der Zeit zum Löschen der Aktie
         }
 
         private static void ImportStock()
@@ -159,7 +202,7 @@ namespace UE1
             Console.WriteLine("Geben Sie den Dateinamen für den Import ein:");
             string fileName = Console.ReadLine();
 
-            Stopwatch watch = Stopwatch.StartNew(); 
+            //Stopwatch watch = Stopwatch.StartNew();
             if (hashTable.TryGetStockByName(stockName, out Stock s)) // Versuche Aktie aus Hashtable zu erhalten
             {
                 if (!TryReadStockValuesFromCSV(fileName, s)) // Versuche Aktiendaten aus CSV-Datei zu lesen
@@ -173,8 +216,8 @@ namespace UE1
                 Console.WriteLine("Aktie " + stockName + " nicht gefunden"); // Ausgabe falls Aktie nicht gefunden wurde
             }
 
-            watch.Stop(); 
-            Console.WriteLine("Aktie importieren: " + watch.Elapsed); // Ausgabe der Zeit zum Importieren der Aktie
+            //watch.Stop();
+            //Console.WriteLine("Aktie importieren: " + watch.Elapsed); // Ausgabe der Zeit zum Importieren der Aktie
         }
 
         private static bool TryReadStockValuesFromCSV(string fileName, Stock stock)
@@ -246,11 +289,10 @@ namespace UE1
 
             if (userInput == "1")
             {
-
                 Console.WriteLine("Name der Aktie:");
                 userInput = Console.ReadLine();
 
-                Stopwatch watch = Stopwatch.StartNew();
+                //Stopwatch watch = Stopwatch.StartNew();
                 if (hashTable.TryGetStockByName(userInput, out Stock s)) // Versuche Aktie aus Hashtable zu erhalten
                 {
                     StockData data = s.Data[s.Data.Count - 1]; // Letzte Aktiendaten abrufen
@@ -269,21 +311,21 @@ namespace UE1
                 }
                 else
                 {
-                    Console.WriteLine("Aktie " + userInput + " existiert nicht"); // Ausgabe falls Aktie nicht gefunden wurde
+                    Console.WriteLine("Aktie " + userInput +
+                                      " existiert nicht"); // Ausgabe falls Aktie nicht gefunden wurde
                 }
 
-                watch.Stop();
-                Console.WriteLine("Aktie suchen: " + watch.Elapsed); // Ausgabe der Zeit zur Suche der Aktie
+                //watch.Stop();
+                //Console.WriteLine("Aktie suchen: " + watch.Elapsed); // Ausgabe der Zeit zur Suche der Aktie
                 return;
             }
 
             if (userInput == "2")
             {
-
                 Console.WriteLine("Symbol der Aktie:");
                 userInput = Console.ReadLine();
 
-                Stopwatch watch = Stopwatch.StartNew();
+                //Stopwatch watch = Stopwatch.StartNew();
                 if (hashTable.TryGetStockBySymbol(userInput, out Stock s)) // Versuche Aktie aus Hashtable zu erhalten
                 {
                     StockData data = s.Data[s.Data.Count - 1]; // Letzte Aktiendaten abrufen
@@ -302,19 +344,16 @@ namespace UE1
                 }
                 else
                 {
-                    Console.WriteLine("Aktie " + userInput + " existiert nicht"); // Ausgabe falls Aktie nicht gefunden wurde
+                    Console.WriteLine("Aktie " + userInput +
+                                      " existiert nicht"); // Ausgabe falls Aktie nicht gefunden wurde
                 }
 
-                watch.Stop();
-                Console.WriteLine("Aktie suchen: " + watch.Elapsed); // Ausgabe der Zeit zur Suche der Aktie
+                //watch.Stop();
+                //Console.WriteLine("Aktie suchen: " + watch.Elapsed); // Ausgabe der Zeit zur Suche der Aktie
                 return;
-
             }
 
             Console.WriteLine("Ungültige eingabe");
-
-
-
         }
     }
 }
